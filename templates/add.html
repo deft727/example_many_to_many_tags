@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h1 class="text-center mt-5"> Add Story </h1>
+        
+        <form class="form col-md-8 offset-md-2 mb-5" method="POST"  enctype="multipart/form-data">    
+
+          {{ form.hidden_tag() }}
+          <div>
+              {{ form.name.label() }} 
+              {{ form.name(class="form-control flex-grow-1 mr-2") }} 
+              
+            </div>
+
+            
+            <div>
+                {{ form.tag.label() }} 
+                {{ form.tag(class="form-control flex-grow-1 mr-2") }} 
+                
+              </div>
+         <br>
+          
+        {{  form.Btm(class="btn btn-primary") }}</button>
+      </form>
+
+</div>
+    
+
+{% endblock %}

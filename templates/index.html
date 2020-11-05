@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+
+<h1 class="text-center mt-1"> Test </h1>
+    </div>
+
+<div class="row" style= margin-top:50px;margin-left:315px>
+
+</div>
+
+
+<div class="container mt-5">
+
+{%for art in story%}
+<div class="alert alert-secondary">
+
+  {%for i in art.tags.all()%}
+
+    <span class="badge badge-info">
+        <a href="#">{{i.name}}</a> 
+      </span>
+
+      {%endfor%}
+
+
+
+      <div class="btn-group">
+        <span class="badge badge-secondary" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          new tag
+        </span>
+        <div class="dropdown-menu">
+
+          <form class="form" id="form" name="form">
+            <input type="text" class="form-field" name="name" placeholder="tag">
+            <button class="form-button" but="{{art.id}}" name="story" value="{{art.id}}"><span class="text-button">добавить тег</span></button>
+          </form>
+        </div>
+      </div>
+
+
+<h2>{{art.name}}</h2>
+<p><b>Дата : {{art.creationData}}</b></p>
+
+</div>
+{%endfor%}
+
+    </ul>
+    <nav aria-label="...">
+        <ul class="pagination">
+          <li {%if not pages.prev_num%} class="page-item disabled" {%else%} class="page-item " {%endif%}>
+            <a class="page-link" href='./?page={{pages.prev_num}}' tabindex="-1">«</a>
+          </li>
+          
+          {%for page in pages.iter_pages() %} 
+          {%if  page==pages.page%} <li class="page-item active">{%endif%}
+              {%if page %}
+              
+            <a class="page-link" href="./?page={{page}}">{{page}} <span class="sr-only">(current)</span></a>
+          </li>
+          {%else%}
+          <li class="page-item disabled"><a class="page-link" href="">...</a></li>
+          {%endif%}
+          {% endfor %}
+      
+          <li {%if not pages.next_num%} class="page-item disabled" {%else%} class="page-item " {%endif%}>
+              <a class="page-link" href="./?page={{pages.next_num}}">»</a>
+          </li>
+      </ul>
+      </nav>        </div>
+
+{% endblock %}
+
+</body>
+
+
+          <script>
+$(document).ready(function() {
+	$('#form').submit(function() { 
+		if (document.form.name.value == '' || document.form.phone.value == '' ) {
+			valid = false;
+			return valid;
+		}
+		$.ajax({
+			type: "POST",
+			url: "/",
+			data: $(this).serialize()
+		}).done(function() {
+			$('.js-overlay-thank-you').fadeIn();
+			$(this).find('input').val('');
+			$('#form').trigger('reset');
+		});
+		return false;
+	});
+});
+
+
+          </script>
+</html>
